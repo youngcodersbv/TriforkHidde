@@ -41,15 +41,7 @@ public class Player {
         this.length = length;
         this.dateOfBirth = dateOfBirth;
         this.teamName = teamName;
-    }
-
-    public Player(String firstName, String lastName, String position, Double length, Integer age, LocalDate dateOfBirth) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.position = position;
-        this.length = length;
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
+        this.age = Period.between(dateOfBirth,LocalDate.now()).getYears();
     }
 
     public Long getId() {
@@ -93,7 +85,7 @@ public class Player {
     }
 
     public Integer getAge() {
-        return Period.between(dateOfBirth,LocalDate.now()).getYears();
+        return age;
     }
 
     public void setAge(Integer age) {
