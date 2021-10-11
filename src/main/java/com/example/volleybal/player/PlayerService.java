@@ -28,18 +28,18 @@ public class PlayerService {
     public Player addNewPlayer(Player player) {
         return playerRepository.save(player);
     }
+
+
+    public void deletePlayer(Long playerId) {
+        boolean exists = playerRepository.existsById(playerId);
+        if (!exists) {
+            throw new IllegalStateException("player with id " + playerId + " does not exist");
+        }
+        playerRepository.deleteById(playerId);
+    }
 }
 
-/*    public void deleteStudent(Long teamId) {
-        boolean exists = teamRepository.existsById(teamId);
-        if (!exists) {
-            throw new IllegalStateException("team with id " + teamId + " does not exist");
-        }
-        teamRepository.deleteById(teamId);
-    }
-
-
-    @Transactional
+/*    @Transactional
     public void updateTeam(Long teamId, String teamName){
         Team team = teamRepository.findById(teamId).orElseThrow(() -> new IllegalStateException("team with id " + teamId + " does not exist"));
 

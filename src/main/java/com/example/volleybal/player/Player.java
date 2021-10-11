@@ -20,6 +20,7 @@ public class Player {
     private String lastName;
     private String position;
     private Double length;
+    @Transient
     private Integer age;
     private LocalDate dateOfBirth;
     private String teamName;
@@ -33,12 +34,11 @@ public class Player {
     public Player() {
     }
 
-    public Player(String firstName, String lastName, String position, Double length, Integer age, LocalDate dateOfBirth, String teamName) {
+    public Player(String firstName, String lastName, String position, Double length, LocalDate dateOfBirth, String teamName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
         this.length = length;
-        this.age = age;
         this.dateOfBirth = dateOfBirth;
         this.teamName = teamName;
     }
@@ -127,13 +127,12 @@ public class Player {
     @Override
     public String toString() {
         return "Player{" +
-//                "firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", position='" + position + '\'' +
                 ", length=" + length +
                 ", age=" + age +
-                ", dateOfBirth=" + dateOfBirth +
-                /*", teamName='" + teamName + '\'' +*/
+                ", teamName='" + teamName + '\'' +
                 '}';
     }
 }
