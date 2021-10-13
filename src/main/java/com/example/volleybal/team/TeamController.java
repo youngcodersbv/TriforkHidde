@@ -1,44 +1,37 @@
 package com.example.volleybal.team;
 
-import lombok.RequiredArgsConstructor;
+import com.example.volleybal.dto.PlayerDto;
+import com.example.volleybal.player.PlayerRepository;
+import com.example.volleybal.player.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping(path = "/api/team")
-//@XmlRootElement
+
+@Controller
+@RequestMapping(path = "/teams")
 public class TeamController {
 
-    private TeamService teamService;
+    @Autowired
+    TeamService teamService;
 
-    public TeamController(TeamService teamService) {
-        this.teamService = teamService;
+    @Autowired
+    TeamRepository teamRepository;
+
+    @GetMapping()
+    public String index(Model model) {
+        Iterable iter = teamRepository.findAll();
+        model.addAttribute("teams", iter);
+        return "teams";
     }
 
-    @GetMapping
-    public List<Team> getTeams() {
-        return teamService.getTeams();
-
-    }
-
-    @PostMapping
-    public Team registerNewTeam(@RequestBody Team team) {
-        return teamService.addNewTeam(team);
-    }
-
-    @DeleteMapping(path = "{teamId}")
-    public void deleteTeam(@PathVariable("teamId") Long teamId) {
-        teamService.deleteStudent(teamId);
-    }
-
-    @PutMapping(path = "{teamId}")
-    public void updateTeam(@PathVariable("teamId") Long teamId, @RequestParam(required = false) String teamName) {
-        teamService.updateTeam(teamId, teamName);
-    }
 }
+
+

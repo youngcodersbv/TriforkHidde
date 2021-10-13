@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Teams</h1>
+<table>
+    <thead>
+    <tr>
+        <th th:text="Id">id</th>
+        <th th:text="Team_Name">teamname</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="team: ${teams}">
+        <td th:text="${team.id}">Oranges</td>
+        <td th:text="${team.teamName}">Oranges</td>
+    </tr>
+    </tbody>
+</table>
+<p><a href="/">To homepage</a></p>
+</body>
+</html>

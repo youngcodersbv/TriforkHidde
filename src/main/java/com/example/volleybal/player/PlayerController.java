@@ -1,77 +1,45 @@
 package com.example.volleybal.player;
 
-import com.example.volleybal.player.Player;
-import com.example.volleybal.player.PlayerService;
+import com.example.volleybal.dto.PlayerDto;
 import com.example.volleybal.team.Team;
 import com.example.volleybal.team.TeamRepository;
-import com.example.volleybal.team.TeamService;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.EntityMode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
-@RestController
-@RequestMapping(path = "/api/player")
+@Controller
+@RequestMapping(path = "/players")
 public class PlayerController {
 
-    private final PlayerService playerService;
+    @Autowired
+    TeamRepository teamRepository;
 
     @Autowired
-    private TeamRepository teamRepository;
+    PlayerService playerService;
 
     @Autowired
-    private PlayerRepository playerRepository;
+    PlayerRepository playerRepository;
+    private Model team;
 
-    @Autowired
-    public PlayerController(PlayerService playerService) {
-        this.playerService = playerService;
+    @GetMapping()
+    public String index(Model model) {
+        Iterable iter = playerRepository.findAll();
+        model.addAttribute("players", iter);
+        return "players";
     }
 
-    @GetMapping
-    public List<Player> getPlayers() {
-        return playerService.getPlayers();
-
+    @PostMapping()
+    public String postIndex(@ModelAttribute PlayerDto player) {
+        System.out.println(player.toString());
+        playerService.addNewPlayer(player);
+        return "redirect:/players";
     }
-
-    public boolean checkTeam(Set<Player> players, String firstName){
-        List<String> stringStream = players.stream().map(player -> player.getFirstName()).collect(Collectors.toList());
-        return stringStream.contains(firstName);
-    }
-
-    @PostMapping
-    public void createNewPlayer(@RequestBody Player player) {
-        Team team = teamRepository.findByTeamName(player.getTeamName());
-        if(!checkTeam(team.getPlayers(), player.getFirstName())){
-            player.setTeam(team);
-            team.getPlayers().add(player);
-        }
-        teamRepository.save(team);
-    }
-
-  @DeleteMapping(path = "{Id}")
-    public void deleteTeam(@PathVariable("Id") Long teamId) {
-        playerRepository.deleteById(teamId);
-    }
-
-/*    @PutMapping(path = "{teamId}")
-    public void updateTeam(@PathVariable("teamId") Long teamId, @RequestParam(required = false) String teamName) {
-        playerService.updateTeam(teamId, teamName);
-    }
-}*/
 
 }
+

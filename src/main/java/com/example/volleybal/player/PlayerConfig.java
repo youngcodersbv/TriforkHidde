@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.time.LocalDate;
 import java.util.List;
 
-@Configuration
+/*@Configuration
 public class PlayerConfig {
 
         @Bean
@@ -25,5 +25,5 @@ public class PlayerConfig {
                 }
             };
         }
-}
+}*/
 

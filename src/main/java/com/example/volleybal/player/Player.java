@@ -2,10 +2,13 @@ package com.example.volleybal.player;
 
 import com.example.volleybal.team.Team;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "player", schema = "public")
@@ -19,9 +22,10 @@ public class Player {
     private String firstName;
     private String lastName;
     private String position;
-    private Double length;
+    private Integer length;
     @Transient
     private Integer age;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     private String teamName;
 
@@ -30,26 +34,17 @@ public class Player {
     private Team team;
 
 
-
     public Player() {
     }
 
-    public Player(String firstName, String lastName, String position, Double length, LocalDate dateOfBirth, String teamName) {
+    public Player(String firstName, String lastName, String position, Integer length, LocalDate dateOfBirth, String teamName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
         this.length = length;
         this.dateOfBirth = dateOfBirth;
         this.teamName = teamName;
-    }
-
-    public Player(String firstName, String lastName, String position, Double length, Integer age, LocalDate dateOfBirth) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.position = position;
-        this.length = length;
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
+        this.age = Period.between(dateOfBirth,LocalDate.now()).getYears();
     }
 
     public Long getId() {
@@ -84,16 +79,16 @@ public class Player {
         this.position = position;
     }
 
-    public Double getLength() {
+    public Integer getLength() {
         return length;
     }
 
-    public void setLength(Double length) {
+    public void setLength(Integer length) {
         this.length = length;
     }
 
     public Integer getAge() {
-        return Period.between(dateOfBirth,LocalDate.now()).getYears();
+        return dateOfBirth != null ? Period.between(dateOfBirth,LocalDate.now()).getYears() : 0;
     }
 
     public void setAge(Integer age) {
@@ -133,6 +128,7 @@ public class Player {
                 ", length=" + length +
                 ", age=" + age +
                 ", teamName='" + teamName + '\'' +
+                ", dab='" + dateOfBirth + '\'' +
                 '}';
     }
 }

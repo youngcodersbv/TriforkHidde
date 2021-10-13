@@ -1,34 +1,44 @@
 package com.example.volleybal.player;
 
-import com.example.volleybal.player.Player;
-import com.example.volleybal.player.PlayerRepository;
+import com.example.volleybal.dto.PlayerDto;
 import com.example.volleybal.team.Team;
+import com.example.volleybal.team.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Component
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
+    private final TeamRepository teamRepository;
 
     @Autowired
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository,
+                         TeamRepository teamRepository) {
         this.playerRepository = playerRepository;
+        this.teamRepository = teamRepository;
     }
 
     public List<Player> getPlayers() {
         return playerRepository.findAll();
     }
 
-    public Player addNewPlayer(Player player) {
-        return playerRepository.save(player);
+    public Player addNewPlayer(PlayerDto player) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
+        Player player1 = player.createPlayerFromData();
+        if (player.getLength() > 125 && player.getLength() < 225) {
+            LocalDate localDate = LocalDate.parse(player.getDateOfBirth(), formatter);
+            player1.setDateOfBirth(localDate);
+            Team team = teamRepository.findByTeamName(player.getTeamName());
+            player1.setTeam(team);
+            return playerRepository.save(player1);
+        };
+        return player1;
     }
-
 
     public void deletePlayer(Long playerId) {
         boolean exists = playerRepository.existsById(playerId);
@@ -37,6 +47,7 @@ public class PlayerService {
         }
         playerRepository.deleteById(playerId);
     }
+
 }
 
 /*    @Transactional

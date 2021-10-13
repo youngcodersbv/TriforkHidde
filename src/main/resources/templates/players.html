@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Players</h1>
+<table>
+    <thead>
+    <tr>
+        <th th:text="Voornaam">First Name</th>
+        <th th:text="Achternaam">Last Name</th>
+        <th th:text="Positie">position</th>
+        <th th:text="Lengte">length</th>
+        <th th:text="Team_Name">team name</th>
+        <th th:text="Leeftijd">dob</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="player: ${players}">
+        <td th:text="${player.firstName}">Oranges</td>
+        <td th:text="${player.lastName}">0.99</td>
+        <td th:text="${player.position}">0.99</td>
+        <td th:text="${player.length}">0.99</td>
+        <td th:text="${player.teamName}">0.99</td>
+        <td th:text="${player.age}">0.99</td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<p>Players form:</p>
+<form action="#" th:action="@{/players}" th:object="${player}" method="post">
+    <div style="display:block;margin-right:500px;">
+        <label>Voornaam</label>
+        <input type="text" th:value="${firstName}" name="firstName"/>
+    </div>
+    <div style="display:block;margin-right:20px;">
+    <label>Achternaam</label>
+        <input type="text" th:value="${lastName}" name="lastName"/>
+    </div>
+    <div style="display:block;margin-right:20px;">
+    <label>Positie</label>
+    <select th:value="${position}" name="position"/>
+        <option value="Libero">Libero</option>
+        <option value="Diagonaal">Diagonaal</option>
+        <option value="Passer-Loper">Passer-Loper</option>
+        <option value="Spelverdeler">Spelverdeler</option>
+        <option value="Middenblokkeerder">Middenblokkeerder</option>
+    </select>
+    </div>
+    <div style="display:block;margin-right:20px;">
+        <label>Lengte</label>
+        <input type="text" th:value="${length}" name="length"/>
+    </div>
+    <div style="display:block;margin-right:20px;">
+    <label>Team naam</label>
+    <select th:value="${teamName}" name="teamName"/>
+        <option value="Taurus">Taurus</option>
+        <option value="Amysoft Lycurgus">Amysoft Lycurgus</option>
+        <option value="Active Living Orion">Active Living Orion</option>
+        <option value="Draisma Dynamo">Draisma Dynamo</option>
+        <option value="ComputerPlan VCN">ComputerPlan VCN</option>
+        <option value="Simplex SSS">Simplex SSS</option>
+        <option value="VoCASA">VoCASA</option>
+        <option value="Sliedrecht Sport">Sliedrecht Sport</option>
+        <option value="Talentteam Papendal">Talentteam Papendal</option>
+        <option value="RECO ZVH">RECO ZVH</option>
+        <option value="Numidia TopVolleybal Limburg">Numidia TopVolleybal Limburg</option>
+    </select>
+    </div>
+    <div style="display:block;margin-right:20px;">
+    <label>Geboortedatum</label>
+        <input type="date" class="form-control" id="dateOfBirth"
+               placeholder="Project start"
+               th:value="${dateOfBirth}" name="dateOfBirth"/>
+    </div>
+    <input type="submit" />
+</form>
+
+<p><a href="/">To homepage</a></p>
+</body>
+</html>

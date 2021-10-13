@@ -15,7 +15,7 @@ public class Team {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Player> players = new HashSet<>();
 
     @Column
@@ -28,6 +28,11 @@ public class Team {
         this.id = id;
         this.teamName = teamName;
     }*/
+
+    public Team(Set<Player> players, String teamName) {
+        this.players = players;
+        this.teamName = teamName;
+    }
 
     public Team(String teamName) {
         this.teamName = teamName;
