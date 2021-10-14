@@ -30,7 +30,10 @@ public class PlayerService {
     public Player addNewPlayer(PlayerDto player) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
         Player player1 = player.createPlayerFromData();
-        if (player.getLength() > 125 && player.getLength() < 225) {
+        if (player.getLength() == null){
+            return player1;
+        }
+        else if (player.getLength() > 125 && player.getLength() < 225) {
             LocalDate localDate = LocalDate.parse(player.getDateOfBirth(), formatter);
             player1.setDateOfBirth(localDate);
             Team team = teamRepository.findByTeamName(player.getTeamName());

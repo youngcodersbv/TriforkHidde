@@ -25,7 +25,6 @@ public class PlayerController {
 
     @Autowired
     PlayerRepository playerRepository;
-    private Model team;
 
     @GetMapping()
     public String index(Model model) {
