@@ -1,15 +1,16 @@
 <template>
-  <Players/>
+    <p>I am Home</p>
+  <HelloWorld/>
 </template>
 
 <script>
-import Players from "@/components/Players";
+import HelloWorld from "@/components/HelloWorld";
 import {defineComponent} from "vue";
 
 export default defineComponent({
   name: 'Home',
   components:{
-    Players
+    HelloWorld
   }
 })
 </script>
