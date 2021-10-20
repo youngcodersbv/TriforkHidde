@@ -1,5 +1,5 @@
 <template>
-    <p>I am Players</p>
+    <p>Players</p>
   <table>
     <thead>
     <tr>
