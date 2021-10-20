@@ -26,7 +26,7 @@ public class TeamService {
         return teamRepository.save(team);
     }
 
-    public void deleteStudent(Long teamId) {
+    public void deleteTeam(Long teamId) {
         boolean exists = teamRepository.existsById(teamId);
         if (!exists) {
             throw new IllegalStateException("team with id " + teamId + " does not exist");

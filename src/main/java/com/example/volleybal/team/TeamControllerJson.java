@@ -34,7 +34,7 @@ public class TeamControllerJson {
 
     @DeleteMapping(path = "{teamId}")
     public void deleteTeam(@PathVariable("teamId") Long teamId) {
-        teamService.deleteStudent(teamId);
+        teamService.deleteTeam(teamId);
     }
 
     @PutMapping(path = "{teamId}")
