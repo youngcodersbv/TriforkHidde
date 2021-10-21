@@ -1,18 +1,18 @@
 <template>
-    <p>I am Home</p>
-  <HelloWorld/>
+  <div id="app">
+    <p>The beauty of volleyball</p>
+    <img :src=logo height="480" width="400" crop="fill" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld";
-import {defineComponent} from "vue";
-
-export default defineComponent({
-  name: 'Home',
-  components:{
-    HelloWorld
+export default {
+  data: function (){
+    return {
+      logo: require('../assets/volleyball.jpg')
+    }
   }
-})
+}
 </script>
 
 <style>
