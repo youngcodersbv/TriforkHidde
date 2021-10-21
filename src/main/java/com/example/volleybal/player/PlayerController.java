@@ -50,5 +50,21 @@ public class PlayerController {
         }
 
     }
+
+   @PostMapping("/updatePlayer")
+    public String updatePlayer(@ModelAttribute Player passedPlayer) {
+        Optional<Player> optionalPlayer = playerRepository.findById(passedPlayer.getId());
+        if (optionalPlayer.isPresent()){
+            Player existingPlayer = optionalPlayer.get();
+            existingPlayer.setFirstName(passedPlayer.getFirstName());
+            existingPlayer.setLastName(passedPlayer.getLastName());
+            existingPlayer.setDateOfBirth(passedPlayer.getDateOfBirth());
+            existingPlayer.setPosition(passedPlayer.getPosition());
+            existingPlayer.setLength(passedPlayer.getLength());
+            existingPlayer.setTeamName(passedPlayer.getTeamName());
+            playerRepository.save(existingPlayer);
+        }
+        return String.format("redirect:/players/%s", passedPlayer.getId());
+    }
 }
 

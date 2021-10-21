@@ -38,9 +38,11 @@ public class TeamService {
     @Transactional
     public void updateTeam(Long teamId, String teamName){
         Team team = teamRepository.findById(teamId).orElseThrow(() -> new IllegalStateException("team with id " + teamId + " does not exist"));
+        System.out.println(team);
 
         if(teamName!= null && teamName.length()>0 && !Objects.equals(team.getTeamName(), teamName)){
             team.setTeamName(teamName);
-        }
+            System.out.println(team);
+        }teamRepository.save(team);
     }
 }

@@ -29,6 +29,44 @@
     </tbody>
 </table>
 
+<form action="#" th:action="@{/players/updatePlayer}" th:object="${players}" method="post">
+    <p>Id:</p>
+    <input type="text" th:value="${players.id}" name="id" th:readonly="true"/>
+    <p>FirstName:</p>
+    <input type="text" th:value="${players.firstName}" name="firstName"/>
+    <p>LastName:</p>
+    <input type="text" th:value="${players.lastName}" name="lastName"/>
+    <p>Length:</p>
+    <input type="text" th:value="${players.length}" name="length"/>
+    <p>Position:</p>
+    <select th:value="${players.position}" name="position"/>
+    <option value="Libero">Libero</option>
+    <option value="Diagonaal">Diagonaal</option>
+    <option value="Passer-Loper">Passer-Loper</option>
+    <option value="Spelverdeler">Spelverdeler</option>
+    <option value="Middenblokkeerder">Middenblokkeerder</option>
+    </select>
+    <p>TeamName:</p>
+    <select th:value="${players.teamName}" name="teamName"/>
+    <option value="Taurus">Taurus</option>
+    <option value="Amysoft Lycurgus">Amysoft Lycurgus</option>
+    <option value="Active Living Orion">Active Living Orion</option>
+    <option value="Draisma Dynamo">Draisma Dynamo</option>
+    <option value="ComputerPlan VCN">ComputerPlan VCN</option>
+    <option value="Simplex SSS">Simplex SSS</option>
+    <option value="VoCASA">VoCASA</option>
+    <option value="Sliedrecht Sport">Sliedrecht Sport</option>
+    <option value="Talentteam Papendal">Talentteam Papendal</option>
+    <option value="RECO ZVH">RECO ZVH</option>
+    <option value="Numidia TopVolleybal Limburg">Numidia TopVolleybal Limburg</option>
+    </select>
+    <p>Geboortedatum:</p>
+    <input type="date" class="form-control" id="dateOfBirth"
+               placeholder="Project start"
+               th:value="${players.dateOfBirth}" name="dateOfBirth"/>
+    <input type="submit"/>
+</form>
+
 <p><a href="/players">To players</a></p>
 </body>
 </html>

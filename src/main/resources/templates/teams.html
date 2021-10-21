@@ -15,11 +15,12 @@
     </thead>
     <tbody>
     <tr th:each="team: ${teams}">
-        <td th:text="${team.id}">Oranges</td>
+        <td><a th:href="@{'/teams/' + ${team.id}}"><span th:text="${team.id}"></span></a></td>
         <td th:text="${team.teamName}">Oranges</td>
     </tr>
     </tbody>
 </table>
+
 <p><a href="/">To homepage</a></p>
 </body>
 </html>

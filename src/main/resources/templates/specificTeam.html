@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Specific Team</h1>
+<table>
+    <thead>
+    <tr>
+        <th th:text="ID">First Name</th>
+        <th th:text="Team_Name">Last Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="team: ${teams}">
+        <td th:text="${team.id}">Oranges</td>
+        <td th:text="${team.teamName}">0.99</td>
+    </tr>
+    </tbody>
+</table>
+<form action="#" th:action="@{/teams/updateTeam}" th:object="${teams}" method="post">
+    <p>Id:</p>
+    <input type="text" th:value="${teams.id}" name="id" th:readonly="true"/>
+    <p>TeamName:</p>
+    <input type="text" th:value="${teams.teamName}" name="teamName"/>
+    <input type="submit" />
+</form>
+<p><a href="/teams">To teams</a></p>
+</body>
+</html>

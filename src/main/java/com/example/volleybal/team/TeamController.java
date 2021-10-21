@@ -6,13 +6,11 @@ import com.example.volleybal.player.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -31,6 +29,30 @@ public class TeamController {
         model.addAttribute("teams", iter);
         return "teams";
     }
+
+    @GetMapping("/{id}")
+    public String getTeamById(@PathVariable("id") long id, Model model){
+        Optional<Team> optionalTeam = teamRepository.findById(id);
+        if (optionalTeam.isPresent()){
+            model.addAttribute("teams", optionalTeam.get());
+            return "specificTeam";
+        }else{
+            return "teams";
+        }
+
+    }
+
+    @PostMapping("/updateTeam")
+    public String updateTeam(@ModelAttribute Team passedTeam) {
+        Optional<Team> optionalTeam = teamRepository.findById(passedTeam.getId());
+        if(optionalTeam.isPresent()){
+            Team existingTeam = optionalTeam.get();
+            existingTeam.setTeamName(passedTeam.getTeamName());
+            teamRepository.save(existingTeam);
+        }
+        return String.format("redirect:/teams/%s", passedTeam.getId());
+    }
+
 
 }
 
