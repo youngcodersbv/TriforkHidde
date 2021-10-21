@@ -9,6 +9,7 @@
 <table>
     <thead>
     <tr>
+        <th th:text="ID">id</th>
         <th th:text="Voornaam">First Name</th>
         <th th:text="Achternaam">Last Name</th>
         <th th:text="Positie">position</th>
@@ -19,6 +20,7 @@
     </thead>
     <tbody>
     <tr th:each="player: ${players}">
+        <td><a th:href="@{'/players/' + ${player.id}}"><span th:text="${player.id}"></span></a></td>
         <td th:text="${player.firstName}">Oranges</td>
         <td th:text="${player.lastName}">0.99</td>
         <td th:text="${player.position}">0.99</td>
