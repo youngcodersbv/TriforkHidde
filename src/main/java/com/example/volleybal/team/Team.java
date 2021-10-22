@@ -2,6 +2,8 @@ package com.example.volleybal.team;
 
 import com.example.volleybal.player.Player;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,7 +17,8 @@ public class Team {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Player> players = new HashSet<>();
 
     @Column

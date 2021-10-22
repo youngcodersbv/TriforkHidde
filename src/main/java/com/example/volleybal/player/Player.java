@@ -3,6 +3,8 @@ package com.example.volleybal.player;
 import com.example.volleybal.team.Team;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -30,6 +32,7 @@ public class Player {
     private String teamName;
 
     @ManyToOne()
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "team_id")
     private Team team;
 

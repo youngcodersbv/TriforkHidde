@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class PlayerService {
@@ -27,9 +29,19 @@ public class PlayerService {
         return playerRepository.findAll();
     }
 
+    public Player createPlayerFromData(PlayerDto playerDto) {
+        Player player = new Player();
+        player.setFirstName(playerDto.getFirstName());
+        player.setLastName(playerDto.getLastName());
+        player.setPosition(playerDto.getPosition());
+        player.setLength(playerDto.getLength());
+        player.setTeamName(playerDto.getTeamName());
+        return player;
+    }
+
     public Player addNewPlayer(PlayerDto player) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
-        Player player1 = player.createPlayerFromData();
+        Player player1 = createPlayerFromData(player);
         if (player.getLength() == null){
             return player1;
         }
@@ -51,14 +63,18 @@ public class PlayerService {
         playerRepository.deleteById(playerId);
     }
 
-}
-
-/*  @Transactional
-    public void updateTeam(Long teamId, String teamName){
-        Team team = teamRepository.findById(teamId).orElseThrow(() -> new IllegalStateException("team with id " + teamId + " does not exist"));
-
-        if(teamName!= null && teamName.length()>0 && !Objects.equals(team.getTeamName(), teamName)){
-            team.setTeamName(teamName);
+    public void updatePlayer(Long playerId, PlayerDto passedPlayer){
+        Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+        if (optionalPlayer.isPresent()){
+            Player existingPlayer = optionalPlayer.get();
+            existingPlayer.setFirstName(passedPlayer.getFirstName());
+            existingPlayer.setLastName(passedPlayer.getLastName());
+            existingPlayer.setDateOfBirth(LocalDate.parse(passedPlayer.getDateOfBirth()));
+            existingPlayer.setPosition(passedPlayer.getPosition());
+            existingPlayer.setLength(passedPlayer.getLength());
+            existingPlayer.setTeamName(passedPlayer.getTeamName());
+            playerRepository.save(existingPlayer);
         }
     }
-}*/
+}
+

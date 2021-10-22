@@ -14,16 +14,6 @@ public class PlayerDto {
     private String dateOfBirth;
     private String teamName;
 
-    public Player createPlayerFromData() {
-        Player player = new Player();
-        player.setFirstName(firstName);
-        player.setLastName(lastName);
-        player.setPosition(position);
-        player.setLength(length);
-        player.setTeamName(teamName);
-        return player;
-    }
-
     public String getFirstName() {
         return firstName;
     }

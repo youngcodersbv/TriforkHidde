@@ -20,13 +20,37 @@
     </tr>
     </tbody>
 </table>
-<form action="#" th:action="@{/teams/updateTeam}" th:object="${teams}" method="post">
+
+<table>
+    <thead>
+    <tr>
+        <th th:text="Voornaam">Voornaam</th>
+        <th th:text="Achternaam">Achternaam</th>
+        <th th:text="Positie">Positie</th>
+        <th th:text="Lengte">Lengte</th>
+        <th th:text="Leeftijd">Leeftijd</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="team: ${teams}">
+    <tr th:each="player: ${teams.getPlayers()}">
+        <td th:text="${player.firstName}">0.99</td>
+        <td th:text="${player.lastName}">0.99</td>
+        <td th:text="${player.position}">0.99</td>
+        <td th:text="${player.length}">0.99</td>
+        <td th:text="${player.age}">0.99</td>
+    </tr>
+    </tbody>
+</table>
+
+<!--<form action="#" th:action="@{/teams/updateTeam}" th:object="${teams}" method="post">
     <p>Id:</p>
     <input type="text" th:value="${teams.id}" name="id" th:readonly="true"/>
     <p>TeamName:</p>
     <input type="text" th:value="${teams.teamName}" name="teamName"/>
     <input type="submit" />
-</form>
+</form>-->
+
 <p><a href="/teams">To teams</a></p>
 </body>
 </html>

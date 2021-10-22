@@ -55,7 +55,7 @@ class PlayerServiceTest {
     void canAddPlayer(){
         PlayerDto player = createPlayerDto(126);
 
-        when(playerRepository.save(ArgumentMatchers.any(Player.class))).thenReturn(player.createPlayerFromData());
+        when(playerRepository.save(ArgumentMatchers.any(Player.class))).thenReturn(playerService.createPlayerFromData(player));
 
         Player result = playerService.addNewPlayer(player);
         assertThat(result.getFirstName()).isSameAs(player.getFirstName());

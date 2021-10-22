@@ -51,8 +51,30 @@ public class PlayerController {
 
     }
 
-   @PostMapping("/updatePlayer")
-    public String updatePlayer(@ModelAttribute Player passedPlayer) {
+    @PostMapping("/updatePlayer")
+    public String updatePlayer(@RequestParam(name = "id") Long playerId, @ModelAttribute PlayerDto passedPlayer) {
+        playerService.updatePlayer(playerId, passedPlayer);
+        return String.format("redirect:/players/%s", playerId);
+    }
+
+
+    @GetMapping("/deletePlayer")
+    public String deletePlayer(@RequestParam(name = "id") Long playerId) {
+        playerService.deletePlayer(playerId);
+        return "redirect:/players";
+    }
+
+}
+/*    @GetMapping("/deletePlayer")
+    public String deletePlayer(@RequestParam(name = "id") Long playerId) {
+        boolean exists = playerRepository.existsById(playerId);
+        if (!exists) {
+            throw new IllegalStateException("player with id " + playerId + " does not exist");
+        }
+        playerRepository.deleteById(playerId);
+        return "redirect:/players";
+
+
         Optional<Player> optionalPlayer = playerRepository.findById(passedPlayer.getId());
         if (optionalPlayer.isPresent()){
             Player existingPlayer = optionalPlayer.get();
@@ -63,8 +85,6 @@ public class PlayerController {
             existingPlayer.setLength(passedPlayer.getLength());
             existingPlayer.setTeamName(passedPlayer.getTeamName());
             playerRepository.save(existingPlayer);
-        }
-        return String.format("redirect:/players/%s", passedPlayer.getId());
-    }
-}
+    }*/
+
 

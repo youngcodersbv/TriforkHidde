@@ -1,7 +1,9 @@
-package com.example.volleybal.team;
+package com.example.volleybal.config;
 
 import com.example.volleybal.player.Player;
 import com.example.volleybal.player.PlayerRepository;
+import com.example.volleybal.team.Team;
+import com.example.volleybal.team.TeamRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Configuration
-public class TeamConfig {
+public class AppConfig {
 
     @Bean
     CommandLineRunner commandLineRunner(TeamRepository teamRepository, PlayerRepository playerRepository) {
