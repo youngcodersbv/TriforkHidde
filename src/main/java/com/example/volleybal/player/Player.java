@@ -40,16 +40,6 @@ public class Player {
     public Player() {
     }
 
-    public Player(String firstName, String lastName, String position, Integer length, LocalDate dateOfBirth, String teamName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.position = position;
-        this.length = length;
-        this.dateOfBirth = dateOfBirth;
-        this.teamName = teamName;
-        this.age = Period.between(dateOfBirth,LocalDate.now()).getYears();
-    }
-
     public Long getId() {
         return id;
     }

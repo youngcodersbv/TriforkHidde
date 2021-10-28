@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static com.example.volleybal.testutils.ObjectInstallUtil.createPlayer;
@@ -60,6 +61,20 @@ class PlayerServiceTest {
         Player result = playerService.addNewPlayer(player);
         assertThat(result.getFirstName()).isSameAs(player.getFirstName());
         verify(playerRepository, times(1)).save(ArgumentMatchers.any(Player.class));
+
+    }
+
+    @Test
+    void canUpdatePlayer(){
+        Player player = createPlayer(126);
+        PlayerDto playerDto = createPlayerDto(155);
+        when(playerRepository.findById(ArgumentMatchers.any(Long.class))).thenReturn(Optional.of(player));
+
+        Player result = createPlayer(170);
+        result = playerService.updatePlayer(playerDto);
+
+        assertThat(result.getFirstName()).isSameAs(playerDto.getFirstName());
+        verify(playerRepository, times(1)).save(player);
 
     }
 

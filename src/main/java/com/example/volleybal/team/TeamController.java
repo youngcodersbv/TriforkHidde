@@ -46,12 +46,7 @@ public class TeamController {
 
     @PostMapping("/updateTeam")
     public String updateTeam(@ModelAttribute Team passedTeam) {
-        Optional<Team> optionalTeam = teamRepository.findById(passedTeam.getId());
-        if(optionalTeam.isPresent()){
-            Team existingTeam = optionalTeam.get();
-            existingTeam.setTeamName(passedTeam.getTeamName());
-            teamRepository.save(existingTeam);
-        }
+        teamService.updateTeam(passedTeam);
         return String.format("redirect:/teams/%s", passedTeam.getId());
     }
 

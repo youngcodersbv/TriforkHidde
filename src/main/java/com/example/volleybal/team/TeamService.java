@@ -2,6 +2,7 @@ package com.example.volleybal.team;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -34,15 +35,15 @@ public class TeamService {
         teamRepository.deleteById(teamId);
     }
 
-
-    @Transactional
-    public void updateTeam(Long teamId, String teamName){
-        Team team = teamRepository.findById(teamId).orElseThrow(() -> new IllegalStateException("team with id " + teamId + " does not exist"));
-        System.out.println(team);
-
-        if(teamName!= null && teamName.length()>0 && !Objects.equals(team.getTeamName(), teamName)){
-            team.setTeamName(teamName);
-            System.out.println(team);
-        }teamRepository.save(team);
+    public Team updateTeam(Team team) {
+        Optional<Team> optionalTeam = teamRepository.findById(team.getId());
+        Team existingTeam = new Team();
+        if (optionalTeam.isPresent()) {
+            existingTeam = optionalTeam.get();
+            existingTeam.setTeamName(team.getTeamName());
+            teamRepository.save(existingTeam);
+        }
+        return existingTeam;
     }
 }
+

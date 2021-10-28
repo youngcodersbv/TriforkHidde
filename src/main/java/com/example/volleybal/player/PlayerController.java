@@ -52,9 +52,9 @@ public class PlayerController {
     }
 
     @PostMapping("/updatePlayer")
-    public String updatePlayer(@RequestParam(name = "id") Long playerId, @ModelAttribute PlayerDto passedPlayer) {
-        playerService.updatePlayer(playerId, passedPlayer);
-        return String.format("redirect:/players/%s", playerId);
+    public String updatePlayer(@ModelAttribute PlayerDto passedPlayer) {
+        playerService.updatePlayer(passedPlayer);
+        return String.format("redirect:/players/%s", passedPlayer.getId());
     }
 
 

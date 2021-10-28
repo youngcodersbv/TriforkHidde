@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -42,16 +41,16 @@ public class PlayerService {
     public Player addNewPlayer(PlayerDto player) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
         Player player1 = createPlayerFromData(player);
-        if (player.getLength() == null){
+        if (player.getLength() == null) {
             return player1;
-        }
-        else if (player.getLength() > 125 && player.getLength() < 225) {
+        } else if (player.getLength() > 125 && player.getLength() < 225) {
             LocalDate localDate = LocalDate.parse(player.getDateOfBirth(), formatter);
             player1.setDateOfBirth(localDate);
             Team team = teamRepository.findByTeamName(player.getTeamName());
             player1.setTeam(team);
             return playerRepository.save(player1);
-        };
+        }
+        ;
         return player1;
     }
 
@@ -63,10 +62,11 @@ public class PlayerService {
         playerRepository.deleteById(playerId);
     }
 
-    public void updatePlayer(Long playerId, PlayerDto passedPlayer){
-        Optional<Player> optionalPlayer = playerRepository.findById(playerId);
-        if (optionalPlayer.isPresent()){
-            Player existingPlayer = optionalPlayer.get();
+    public Player updatePlayer(PlayerDto passedPlayer) {
+        Optional<Player> optionalPlayer = playerRepository.findById(passedPlayer.getId());
+        Player existingPlayer = new Player();
+        if (optionalPlayer.isPresent()) {
+            existingPlayer = optionalPlayer.get();
             existingPlayer.setFirstName(passedPlayer.getFirstName());
             existingPlayer.setLastName(passedPlayer.getLastName());
             existingPlayer.setDateOfBirth(LocalDate.parse(passedPlayer.getDateOfBirth()));
@@ -75,6 +75,7 @@ public class PlayerService {
             existingPlayer.setTeamName(passedPlayer.getTeamName());
             playerRepository.save(existingPlayer);
         }
+        return existingPlayer;
     }
 }
 

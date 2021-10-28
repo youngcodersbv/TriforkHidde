@@ -38,7 +38,7 @@ public class TeamControllerJson {
     }
 
     @PutMapping(path = "{teamId}")
-    public void updateTeam(@PathVariable("teamId") Long teamId, @RequestParam(required = false) String teamName) {
-        teamService.updateTeam(teamId, teamName);
+    public void updateTeam(@PathVariable("teamId") Long teamId, @RequestParam(required = false) Team team) {
+        teamService.updateTeam(team);
     }
 }
